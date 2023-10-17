@@ -1,6 +1,8 @@
 import 'package:doa2k/model.dart';
 import 'package:doa2k/modeltypr.dart';
-import 'package:doa2k/testscreen.dart';
+//import 'package:doa2k/testscreen.dart';
+import 'package:doa2k/ui/home_screen/home_screen.dart';
+import 'package:doa2k/ui/spalsh_screen/spalsh_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -18,9 +20,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: TestScreen(),
+      routes: {
+        HomeScreen.routeName : (context) => const HomeScreen(),
+        SplashScreen.routeName : (context) => const SplashScreen(),
+      },
+      initialRoute: SplashScreen.routeName,
     );
   }
 }
