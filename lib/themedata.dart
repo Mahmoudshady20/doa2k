@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class myThemeData {
+class MyThemeData {
   static const Color lightPrimaryColor = Color(0xFF5D9CEC);
   static const Color lightDividerColor = Color(0xFFFFFFFF);
   static const Color darkPrimaryColor = Color(0xFF5D9CEC);
@@ -11,9 +11,13 @@ class myThemeData {
       hintColor: lighthintColor,
       dividerColor: lightDividerColor,
       primaryColor: const Color(0xFF5D9CEC),
-      scaffoldBackgroundColor: lighthintColor,
+      scaffoldBackgroundColor: const Color(0xFFFFFDF4),
       appBarTheme: const AppBarTheme(
-        titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        titleTextStyle: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          color: Colors.black
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -36,14 +40,15 @@ class myThemeData {
             color: Color(0xFF5D9CEC),
           ),
           titleMedium: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
           titleLarge: TextStyle(
-              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black)),
-      bottomAppBarColor: lightDividerColor);
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
+      bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xFFEDEAEA)));
   static ThemeData darkTheme = ThemeData(
       dividerColor: darkDividerColor,
       primaryColor: darkPrimaryColor,
-      scaffoldBackgroundColor: darkhintColor,
+      scaffoldBackgroundColor: const Color(0xFF000000),
       hintColor: darkhintColor,
       appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -69,7 +74,8 @@ class myThemeData {
           color: Color(0xFF5D9CEC),
         ),
         titleMedium: TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-      ),
-      bottomAppBarColor: darkDividerColor);
+            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+        titleLarge: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+      ), bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xFFEDEAEA)));
 }

@@ -1,8 +1,8 @@
-import 'package:doa2k/ui/home_screen/addtask_bottomsheet.dart';
-import 'package:doa2k/ui/home_screen/list_screen/list_screen.dart';
+import 'package:doa2k/pages/adddrug_bottomsheet/adddrug_view/addtask_bottomsheet.dart';
+import 'package:doa2k/pages/list_screen/view/list_screen.dart';
+import 'package:doa2k/pages/setting_screen/setting_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'setting_screen/setting_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> tabs = [const ListScreen(), SettingScreen()];
+  List<Widget> tabs = [const ListScreen(), const SettingScreen()];
 
   int currentIndexx = 0;
 
@@ -24,20 +24,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,  //5D9CEC
+          title: Text(AppLocalizations.of(context)!.appbartitle),
         ),
         floatingActionButton: FloatingActionButton(
-          shape: StadiumBorder(
-              side: BorderSide(color:Theme.of(context).dividerColor,width: 4)
+          shape: const StadiumBorder(
+              side: BorderSide(color:Color(0xFFEDEAEA),width: 4)
           ),
           onPressed: (){
             addTaskBottomSheet();
           },
+          backgroundColor: const Color(0xFFDFBD43),
           child: const Icon(Icons.add),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
-          notchMargin: 8,
           shape: const CircularNotchedRectangle(),
           child: BottomNavigationBar(
             elevation: 0,
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   void addTaskBottomSheet(){
     showModalBottomSheet(context: context,
-        builder: (context) => AddTaskBottomSheet(),
+        builder: (context) => const AddTaskBottomSheet(),
       showDragHandle: true,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,

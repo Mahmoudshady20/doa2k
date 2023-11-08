@@ -1,30 +1,36 @@
+import 'package:doa2k/local_db/shared_prefrences/shared_prrefrences.dart';
+import 'package:doa2k/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class SettingScreen extends StatefulWidget {
+  const SettingScreen({super.key});
+
   @override
   State<SettingScreen> createState() => _SettingScreenState();
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-   String? modedropdownvalue;//SharedPrefs.getTheme();
-   String? languagedropdownvalue;
+   String? modeDropValue = SharedPrefs.getTheme();
+   String? languageDropValue;
 
   @override
   Widget build(BuildContext context) {
-    //var settingProvider = Provider.of<SettingsProvider>(context);
-    // if(SharedPrefs.getlan() == 'ar'){
-    //   languagedropdownvalue = 'Arabic';
-    // }else {
-    //   languagedropdownvalue = 'English';
-    // }
+    var settingProvider = Provider.of<SettingsProvider>(context);
+    if(SharedPrefs.getlan() == 'ar'){
+      languageDropValue = 'arabic';
+    }else {
+      languageDropValue = 'english';
+    }
     return Container(
       padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Language",style: Theme.of(context).textTheme.titleMedium),
+          Text(AppLocalizations.of(context)!.language,style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(
             height: 20,
           ),
@@ -32,45 +38,50 @@ class _SettingScreenState extends State<SettingScreen> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Theme.of(context).dividerColor,
-              border: Border.all(color: Theme.of(context).primaryColor),
+              border: Border.all(color: const Color(0xFFD6D6D6)),
             ),
             child: DropdownButton(
                 isExpanded: true,
+                dropdownColor: settingProvider.isDark() ? Colors.grey[850] : Colors.white,
                 underline: Container(
                   color: Colors.transparent,
                 ),
                 padding: const EdgeInsets.only(right: 8, left: 8),
-                items:  [
-                    DropdownMenuItem(
-                    value: 'Arabic',
-                    child: Text(
-                      'Arabic',
-                      style: TextStyle(
+                items: [
+                   DropdownMenuItem(
+                     onTap: () {
+                       settingProvider.enableArabic();
+                     },
+                    value: 'arabic',
+                    child:  Text(
+                      AppLocalizations.of(context)!.arabic,
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF5D9CEC),
                       ),
                     ),
                   ),
-                    DropdownMenuItem(
-                    value: 'English',
-                    child: Text('English',
-                        style: TextStyle(
+                  DropdownMenuItem(
+                    onTap: () {
+                      settingProvider.enableEnglish();
+                    },
+                    value: 'english',
+                    child:  Text(AppLocalizations.of(context)!.english,
+                        style: const TextStyle(
                           fontSize: 16,
-                          color: Color(0xFF5D9CEC),
                         )),
                   ),
                 ],
-                value: languagedropdownvalue,
+                value: languageDropValue,
                 onChanged: (value) {
                   setState(() {
-                    languagedropdownvalue = value;
+                    languageDropValue = value;
                   });
                 }),
           ),
           const SizedBox(
             height: 30,
           ),
-          Text("Mode",style: Theme.of(context).textTheme.titleMedium),
+          Text(AppLocalizations.of(context)!.mode,style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(
             height: 20,
           ),
@@ -78,9 +89,10 @@ class _SettingScreenState extends State<SettingScreen> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Theme.of(context).dividerColor,
-              border: Border.all(color: Theme.of(context).primaryColor),
+              border: Border.all(color: const Color(0xFFD6D6D6)),
             ),
             child: DropdownButton(
+              dropdownColor: settingProvider.isDark() ? Colors.grey[850] : Colors.white,
               isExpanded: true,
               underline: Container(
                 color: Colors.transparent,
@@ -89,31 +101,31 @@ class _SettingScreenState extends State<SettingScreen> {
               items: [
                 DropdownMenuItem(
                   onTap: (){
-                    //settingProvider.enableLightMode();
+                    settingProvider.enableLightMode();
                   },
                   value: 'light',
-                  child: const Text('light',
-                      style: TextStyle(
+                  child:  Text(AppLocalizations.of(context)!.light,
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF5D9CEC),
+                        // color: Color(0xFF5D9CEC),
                       )),
                 ),
                 DropdownMenuItem(
                   onTap: (){
-                    //settingProvider.enableDarkMode();
+                    settingProvider.enableDarkMode();
                   },
                   value: 'dark',
-                  child: const Text('dark',
-                      style: TextStyle(
+                  child: Text(AppLocalizations.of(context)!.dark,
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF5D9CEC),
+                        // color: Color(0xFF5D9CEC),
                       )),
                 ),
               ],
-              value: modedropdownvalue,
+              value: modeDropValue,
               onChanged: (value) {
                 setState(() {
-                  modedropdownvalue = value;
+                  modeDropValue = value;
                 });
               },
             ),

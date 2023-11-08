@@ -6,6 +6,7 @@ class MyDateUtils {
     var formatter = DateFormat("yyyy-MMM-dd");
     return formatter.format(date);
   }
+
   static DateTime dateOnly(DateTime date){
     return DateTime(
       date.year,
@@ -14,13 +15,3 @@ class MyDateUtils {
     );
   }
 }
-
-
-// static DateTime dateOnly(DateTime input){
-// // return date only
-// return DateTime(
-// input.year,
-// input.month,
-// input.day
-// );
-// }
