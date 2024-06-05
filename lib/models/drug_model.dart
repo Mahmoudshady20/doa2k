@@ -7,8 +7,15 @@ class Drug {
   int hour;
   int minutes;
   late int id;
-  Drug({required this.drugName, required this.notes, required this.numberOfDays,required this.dateTime,required this.hour,required this.minutes,}){
-   id = idsGenerator;
-   idsGenerator++;
+  Drug({
+    required this.drugName,
+    required this.notes,
+    required this.numberOfDays,
+    required this.dateTime,
+    required this.hour,
+    required this.minutes,
+  }) {
+    id = idsGenerator;
+    idsGenerator++;
   }
 }

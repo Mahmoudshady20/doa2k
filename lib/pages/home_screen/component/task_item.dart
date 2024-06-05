@@ -1,13 +1,12 @@
 import 'package:doa2k/models/drug_model.dart';
 import 'package:doa2k/provider/drug_provider.dart';
 import 'package:doa2k/provider/settings_provider.dart';
-import 'package:doa2k/utils/date_utils.dart';
-import 'package:doa2k/utils/dialog_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import '../../../common/utils/date_utils.dart';
+import '../../../common/utils/dialog_utils.dart';
 
 // ignore: must_be_immutable
 class TaskItem extends StatelessWidget {
@@ -19,22 +18,24 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     time = TimeOfDay(hour: model.hour, minute: model.minutes);
-    var settingsProvider = Provider.of<SettingsProvider>(context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
       margin: const EdgeInsets.all(12),
       child: Slidable(
         startActionPane: ActionPane(
-          extentRatio: .2,
+          extentRatio: .15,
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              borderRadius: settingsProvider.myLocal == const Locale('en')? const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ) : const BorderRadius.only(
-                topRight: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
+              borderRadius: settingsProvider.myLocal == const Locale('en')
+                  ? const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                    )
+                  : const BorderRadius.only(
+                      topRight: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
               onPressed: (buildcontext) {
                 deleteDrug(context);
               },
@@ -47,7 +48,7 @@ class TaskItem extends StatelessWidget {
         ),
         child: Container(
           padding: const EdgeInsets.all(12),
-          margin : const EdgeInsets.all(1),
+          margin: const EdgeInsets.all(1),
           decoration: const BoxDecoration(
               color: Colors.transparent,
               borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -68,8 +69,9 @@ class TaskItem extends StatelessWidget {
                       Text(
                         '${AppLocalizations.of(context)!.namemedication} : ${model.drugName}',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: settingsProvider.fontSize.toDouble(),
                             fontWeight: FontWeight.bold,
+                            decorationThickness: 2,
                             decoration: compareTime(time, model.dateTime)
                                 ? TextDecoration.lineThrough
                                 : TextDecoration.none,
@@ -83,6 +85,7 @@ class TaskItem extends StatelessWidget {
                       Text(
                         '${AppLocalizations.of(context)!.notes} :  ${model.notes}',
                         style: TextStyle(
+                          fontSize: settingsProvider.fontSize - 3,
                             color: settingsProvider.isDark()
                                 ? Colors.white
                                 : Colors.black),
@@ -93,6 +96,7 @@ class TaskItem extends StatelessWidget {
                       Text(
                           '${AppLocalizations.of(context)!.numberofdays} : ${model.numberOfDays}',
                           style: TextStyle(
+                              fontSize: settingsProvider.fontSize - 5,
                               color: settingsProvider.isDark()
                                   ? Colors.white
                                   : Colors.black)),
@@ -100,25 +104,28 @@ class TaskItem extends StatelessWidget {
                   )),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal:12, vertical: 6),
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       color: Color(0xFFDFBD43),
                     ),
                     child: compareTime(time, model.dateTime)
-                        ?  Text(AppLocalizations.of(context)!.arenottaken)
-                        :  Text(AppLocalizations.of(context)!.themedicintaken),
+                        ? Text(AppLocalizations.of(context)!.arenottaken)
+                        : Text(AppLocalizations.of(context)!.themedicintaken),
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Row(
                 children: [
                   Text(
-                      model.minutes > 10 ? '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${model.hour}:${model.minutes} ' :'${AppLocalizations.of(context)!.timetotakethemedicine} :  ${model.hour}:0${model.minutes} ',
+                      model.minutes > 10
+                          ? '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${model.hour}:${model.minutes} '
+                          : '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${model.hour}:0${model.minutes} ',
                       style: TextStyle(
+                          fontSize: settingsProvider.fontSize - 3,
                           color: settingsProvider.isDark()
                               ? Colors.white
                               : Colors.black)),
@@ -141,12 +148,20 @@ class TaskItem extends StatelessWidget {
   // void deleteTask() {
   void deleteDrug(BuildContext context) {
     var provider = Provider.of<DrugProvider>(context, listen: false);
-    DialogUtils.infoDialog(context, title: 'Delete', desc: 'هل انت متأكد انك تريد حذف الدواء',okBtn: 'حذف هذه الجرعة',cancelBtn: 'حذف الدواء بالكامل',
-        childAction2: () {
-      provider.deleteMedication(model.drugName);
-    }, childAction1: () {
-      provider.deletePotion(model.id);
-    });
+
+    DialogUtils.infoDialog(
+      context,
+      title: AppLocalizations.of(context)!.delete,
+      desc: AppLocalizations.of(context)!.deleteDesc,
+      okBtn: AppLocalizations.of(context)!.deletePotion,
+      cancelBtn: AppLocalizations.of(context)!.deleteAll,
+      childAction2: () {
+        provider.deleteMedication(model.drugName,model.notes);
+      },
+      childAction1: () {
+        provider.deletePotion(model.id);
+      },
+    );
   }
 
   bool compareTime(TimeOfDay time, int dateTime) {

@@ -30,10 +30,18 @@ class DialogUtils {
       required String cancelBtn}) {
     AwesomeDialog(
       context: context,
+
       dialogType: DialogType.question,
       animType: AnimType.rightSlide,
       title: title,
       desc: desc,
+      titleTextStyle: const TextStyle(
+          color: Colors.black
+      ),
+      descTextStyle: const TextStyle(
+        color: Colors.black
+      ),
+      dialogBackgroundColor: Colors.white,
       btnCancelColor: Colors.red,
       btnOkColor: Colors.red,
       btnCancelOnPress: () {

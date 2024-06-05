@@ -1,4 +1,4 @@
-import 'package:doa2k/pages/home_screen/home_screen.dart';
+import 'package:doa2k/pages/home_screen/view/list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 // ignore: depend_on_referenced_packages

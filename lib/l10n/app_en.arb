@@ -20,5 +20,18 @@
   "language": "Language",
   "mode":"Mode",
   "light":"Light",
-  "dark":"Dark"
+  "dark":"Dark",
+  "home": "Home",
+  "settings": "Settings",
+  "fontSize": "Font Size",
+  "small": "Small",
+  "medium": "Medium",
+  "large": "Large",
+  "veryLarge": "Very Large",
+  "delete": "Delete",
+  "deleteDesc": "Are you sure you want to delete the medication?",
+  "deletePotion": "Delete this dose",
+  "deleteAll": "Delete all potions"
+
+
 }

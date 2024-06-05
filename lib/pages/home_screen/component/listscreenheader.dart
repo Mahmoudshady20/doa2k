@@ -78,8 +78,8 @@ class _ListScreenHeaderState extends State<ListScreenHeader> {
         calendarStyle:  CalendarStyle(
           defaultTextStyle: settingProvider.isDark() ?  const TextStyle(color: Colors.white) : const TextStyle(),
           weekendTextStyle: settingProvider.isDark() ?  const TextStyle(color: Colors.white) : const TextStyle(),
-          selectedDecoration: const BoxDecoration(
-            color: Color(0xFFDFBD43),
+          selectedDecoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
             shape: BoxShape.circle,
           ),
           // weekendDecoration: const BoxDecoration(
@@ -90,7 +90,7 @@ class _ListScreenHeaderState extends State<ListScreenHeader> {
           disabledTextStyle: settingProvider.isDark() ?  const TextStyle(color: Colors.white) : const TextStyle(),
 
           todayDecoration: const BoxDecoration(
-            color: Color(0xFFD6D6D6),
+            color: Colors.grey,
             shape: BoxShape.circle,
           ),
         ),

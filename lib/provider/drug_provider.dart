@@ -1,4 +1,5 @@
 import 'package:doa2k/models/drug_model.dart';
+import 'package:doa2k/services/notification_local.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -20,7 +21,7 @@ class DrugProvider extends ChangeNotifier {
     for (int j = 1; j <= numberOfTimes; j++) {
       if (j != 1) {
         hours = hours + (24 ~/ numberOfTimes);
-        if (hours > 24) {
+        if (hours >= 24) {
           hours -= 24;
         }
       }
@@ -33,6 +34,18 @@ class DrugProvider extends ChangeNotifier {
               dateTime: dateTime,
               hour: hours,
               minutes: minutes));
+          try{
+            LocalNotificationRevision.showDoa2kNotification(
+                id: box.values.last.id,
+                year: DateTime.fromMillisecondsSinceEpoch(dateTime).year,
+                month: DateTime.fromMillisecondsSinceEpoch(dateTime).month,
+                day: DateTime.fromMillisecondsSinceEpoch(dateTime).day,
+                hour: hours,
+                drugName: drugName,
+                drugDesc: notes,
+                minutes: minutes);
+          } catch(e){
+          }
         } else {
           await box.add(Drug(
               drugName: drugName,
@@ -41,6 +54,18 @@ class DrugProvider extends ChangeNotifier {
               dateTime: dateTime + (86400000 * i),
               hour: hours,
               minutes: minutes));
+          try{
+            LocalNotificationRevision.showDoa2kNotification(
+                id: box.values.last.id,
+                year: DateTime.fromMillisecondsSinceEpoch(dateTime + (86400000 * i)).year,
+                month: DateTime.fromMillisecondsSinceEpoch(dateTime + (86400000 * i)).month,
+                day: DateTime.fromMillisecondsSinceEpoch(dateTime + (86400000 * i)).day,
+                hour: hours,
+                drugName: drugName,
+                drugDesc: notes,
+                minutes: minutes);
+          } catch(e){
+          }
         }
       }
     }
@@ -52,23 +77,26 @@ class DrugProvider extends ChangeNotifier {
     return box.values
         .where((element) => element.dateTime == datetime)
         .cast<Drug>()
-        .toList();
+        .toList()
+      ..sort((a, b) => a.hour.compareTo(b.hour));
   }
 
   deletePotion(int id) async {
     for (int i = lists!.length - 1; i >= 0; i--) {
       if (lists![i].id == id) {
         await box.deleteAt(i);
+        LocalNotificationRevision.cancelNotification(id);
       }
     }
     // box.clear();
     notifyListeners();
   }
 
-  deleteMedication(String drugName) async {
+  deleteMedication(String drugName,String drugDesc) async {
     for (int i = lists!.length - 1; i >= 0; i--) {
-      if (lists![i].drugName == drugName) {
+      if (lists![i].drugName == drugName && lists![i].notes == drugDesc) {
         await box.deleteAt(i);
+        LocalNotificationRevision.cancelNotification(lists![i].id);
       }
     }
     notifyListeners();
