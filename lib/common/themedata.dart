@@ -15,7 +15,7 @@ class MyThemeData {
         backgroundColor: Color(0xFFDFBD43)
     ),
     primaryColor: const Color(0xFF5D9CEC),
-
+    canvasColor: const Color(0xFFFFFDF4),
     scaffoldBackgroundColor: const Color(0xFFFFFDF4),
     appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(
@@ -32,6 +32,12 @@ class MyThemeData {
     ),
     drawerTheme: const DrawerThemeData(
       backgroundColor: Color(0xFFFFFDF4)
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.grey[200],
+        side: const BorderSide(color: Colors.black,width: 0.7)
+      )
     ),
     textTheme: const TextTheme(
       labelSmall: TextStyle(
@@ -65,11 +71,17 @@ class MyThemeData {
     cardColor: const Color(0xFF6161F3),
     scaffoldBackgroundColor: const Color(0xFF181832),
     hintColor: darkHintColor,
+    canvasColor: const Color(0xFF181832),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFF6161F3)
     ),
     iconTheme: const IconThemeData(
       color: Colors.white
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white
+        )
     ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),

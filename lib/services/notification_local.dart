@@ -49,9 +49,10 @@ class LocalNotificationRevision {
       required int day,
       required int hour,
       required int minutes}) async {
-    NotificationDetails details = const NotificationDetails(
+    NotificationDetails details = NotificationDetails(
         android: AndroidNotificationDetails('id 3', 'doa2k notification',
             icon: '@mipmap/ic_launcher',
+            sound: RawResourceAndroidNotificationSound('notification.wav'.split('.').first),
             importance: Importance.max, priority: Priority.high));
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
