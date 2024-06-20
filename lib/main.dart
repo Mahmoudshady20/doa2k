@@ -9,12 +9,35 @@ import 'package:doa2k/pages/splash_screen/splash_screen.dart';
 import 'package:doa2k/services/local_db/hive/drug_modeltype.dart';
 import 'package:doa2k/services/local_db/shared_prefrences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:workmanager/workmanager.dart';
 
+void callbackDispatcher(){
+  Workmanager().executeTask((task, inputData) async {
+    const platform = MethodChannel('com.example.doa2k/wakelock');
+    try {
+      await platform.invokeMethod('wakeUpScreen');
+      await LocalNotificationRevision.showDoa2kNotification(
+        year: inputData!['year'],
+        id: inputData['id'],
+        drugName: inputData['drugName'],
+        drugDesc: inputData['drugDesc'],
+        month: inputData['month'],
+        day: inputData['day'],
+        hour: inputData['hour'],
+        minutes: inputData['minutes'],
+      );
+    } on PlatformException catch (e) {
+      print("Failed to wake up screen: '${e.message}'.");
+    }
+    return Future.value(true);
+  });
+}
 
 void main() async {
   WidgetsFlutterBinding();
@@ -23,7 +46,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(DrugTypeAdaptor());
   await Hive.openBox<Drug>('models');
-
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: false, // Set to false in production
+  );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<SettingsProvider>(
       create: (context) => SettingsProvider()..init(),

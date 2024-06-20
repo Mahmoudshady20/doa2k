@@ -2,6 +2,7 @@ import 'package:doa2k/models/drug_model.dart';
 import 'package:doa2k/services/notification_local.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:workmanager/workmanager.dart';
 
 class DrugProvider extends ChangeNotifier {
   Box<Drug> box = Hive.box<Drug>('models');
@@ -35,7 +36,7 @@ class DrugProvider extends ChangeNotifier {
               hour: hours,
               minutes: minutes));
           try{
-            LocalNotificationRevision.showDoa2kNotification(
+            await LocalNotificationRevision.showDoa2kNotification(
                 id: box.values.last.id,
                 year: DateTime.fromMillisecondsSinceEpoch(dateTime).year,
                 month: DateTime.fromMillisecondsSinceEpoch(dateTime).month,
@@ -44,6 +45,20 @@ class DrugProvider extends ChangeNotifier {
                 drugName: drugName,
                 drugDesc: notes,
                 minutes: minutes);
+            Workmanager().registerOneOffTask(
+              box.values.last.id.toString(),
+              'taskName',
+              inputData: {
+                'year': DateTime.fromMillisecondsSinceEpoch(dateTime).year,
+                'id': box.values.last.id,
+                'drugName': drugName,
+                'drugDesc': notes,
+                'month': DateTime.fromMillisecondsSinceEpoch(dateTime).month,
+                'day': DateTime.fromMillisecondsSinceEpoch(dateTime).day,
+                'hour': hours,
+                'minutes': minutes,
+              },
+            );
           } catch(e){
           }
         } else {
@@ -64,6 +79,20 @@ class DrugProvider extends ChangeNotifier {
                 drugName: drugName,
                 drugDesc: notes,
                 minutes: minutes);
+            Workmanager().registerOneOffTask(
+              box.values.last.id.toString(),
+              'taskName',
+              inputData: {
+                'year': DateTime.fromMillisecondsSinceEpoch(dateTime).year,
+                'id': box.values.last.id,
+                'drugName': drugName,
+                'drugDesc': notes,
+                'month': DateTime.fromMillisecondsSinceEpoch(dateTime).month,
+                'day': DateTime.fromMillisecondsSinceEpoch(dateTime).day,
+                'hour': hours,
+                'minutes': minutes,
+              },
+            );
           } catch(e){
           }
         }

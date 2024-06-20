@@ -29,13 +29,13 @@ class TaskItem extends StatelessWidget {
             SlidableAction(
               borderRadius: settingsProvider.myLocal == const Locale('en')
                   ? const BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                    )
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              )
                   : const BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
+                topRight: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
               onPressed: (buildcontext) {
                 deleteDrug(context);
               },
@@ -64,47 +64,47 @@ class TaskItem extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${AppLocalizations.of(context)!.namemedication} : ${model.drugName}',
-                        style: TextStyle(
-                            fontSize: settingsProvider.fontSize.toDouble(),
-                            fontWeight: FontWeight.bold,
-                            decorationThickness: 2,
-                            decoration: compareTime(time, model.dateTime)
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                            color: settingsProvider.isDark()
-                                ? Colors.white
-                                : Colors.black),
-                      ),
-                      const SizedBox(
-                        height: 18,
-                      ),
-                      Text(
-                        '${AppLocalizations.of(context)!.notes} :  ${model.notes}',
-                        style: TextStyle(
-                          fontSize: settingsProvider.fontSize - 3,
-                            color: settingsProvider.isDark()
-                                ? Colors.white
-                                : Colors.black),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                          '${AppLocalizations.of(context)!.numberofdays} : ${model.numberOfDays}',
-                          style: TextStyle(
-                              fontSize: settingsProvider.fontSize - 5,
-                              color: settingsProvider.isDark()
-                                  ? Colors.white
-                                  : Colors.black)),
-                    ],
-                  )),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${AppLocalizations.of(context)!.namemedication} : ${model.drugName}',
+                            style: TextStyle(
+                                fontSize: settingsProvider.fontSize.toDouble(),
+                                fontWeight: FontWeight.bold,
+                                decorationThickness: 2,
+                                decoration: compareTime(time, model.dateTime)
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                                color: settingsProvider.isDark()
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          const SizedBox(
+                            height: 18,
+                          ),
+                          Text(
+                            '${AppLocalizations.of(context)!.notes} :  ${model.notes}',
+                            style: TextStyle(
+                                fontSize: settingsProvider.fontSize - 3,
+                                color: settingsProvider.isDark()
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                              '${AppLocalizations.of(context)!.numberofdays} : ${model.numberOfDays}',
+                              style: TextStyle(
+                                  fontSize: settingsProvider.fontSize - 5,
+                                  color: settingsProvider.isDark()
+                                      ? Colors.white
+                                      : Colors.black)),
+                        ],
+                      )),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       color: Color(0xFFDFBD43),
@@ -166,11 +166,11 @@ class TaskItem extends StatelessWidget {
 
   bool compareTime(TimeOfDay time, int dateTime) {
     if (dateTime ==
-            MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
+        MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
         TimeOfDay.now().hour > time.hour) {
       return true;
     } else if (dateTime ==
-            MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
+        MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
         TimeOfDay.now().hour == time.hour &&
         TimeOfDay.now().minute > time.minute) {
       return true;

@@ -11,6 +11,7 @@ class LocalNotificationRevision {
   static void Function(NotificationResponse)? onDidReceiveNotificationResponse;
 
   static Future init() async {
+   // flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
     InitializationSettings settings = const InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: DarwinInitializationSettings());
@@ -40,7 +41,7 @@ class LocalNotificationRevision {
         payload: "PayLoad Data");
   }
 
-  static void showDoa2kNotification(
+  static Future<void> showDoa2kNotification(
       {required int year,
       required int id,
         required String drugName,
@@ -52,7 +53,8 @@ class LocalNotificationRevision {
     NotificationDetails details = NotificationDetails(
         android: AndroidNotificationDetails('id 3', 'doa2k notification',
             icon: '@mipmap/ic_launcher',
-            sound: RawResourceAndroidNotificationSound('notification.wav'.split('.').first),
+            playSound: true,
+            sound: RawResourceAndroidNotificationSound('notification.mp3'.split('.').first),
             importance: Importance.max, priority: Priority.high));
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();

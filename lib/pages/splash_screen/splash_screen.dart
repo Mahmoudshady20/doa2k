@@ -1,6 +1,6 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doa2k/pages/home_screen/view/list_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 // ignore: depend_on_referenced_packages
 import 'package:page_transition/page_transition.dart';
 
@@ -13,27 +13,16 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: AnimatedSplashScreen(
-          backgroundColor: const Color(0xFFFFFDF4),
-          centered: true,
-          pageTransitionType: PageTransitionType.fade,
-          splash: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                'assets/images/logo.png',
-              ),
-            ],
-          ),
-          nextScreen: const HomeScreen(),
-          duration: 1500,
-          animationDuration: const Duration(seconds: 1),
-          curve: Curves.easeInOutCubic,
-        ),
+      body: AnimatedSplashScreen(
+        backgroundColor: Colors.transparent,
+        centered: true,
+        pageTransitionType: PageTransitionType.fade,
+        splash: 'assets/images/logo_doaak.png',
+        nextScreen: const HomeScreen(),
+        duration: 1500,
+        splashIconSize: double.infinity,
+        animationDuration: const Duration(seconds: 2),
+        curve: Curves.easeInOutCubic,
       ),
     );
   }
