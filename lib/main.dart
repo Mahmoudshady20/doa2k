@@ -33,7 +33,7 @@ void callbackDispatcher(){
         minutes: inputData['minutes'],
       );
     } on PlatformException catch (e) {
-      print("Failed to wake up screen: '${e.message}'.");
+
     }
     return Future.value(true);
   });
@@ -46,7 +46,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(DrugTypeAdaptor());
   await Hive.openBox<Drug>('models');
-  Workmanager().initialize(
+  await Workmanager().initialize(
     callbackDispatcher,
     isInDebugMode: false, // Set to false in production
   );

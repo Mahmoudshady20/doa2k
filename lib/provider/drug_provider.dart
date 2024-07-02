@@ -16,7 +16,7 @@ class DrugProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  addModel(String drugName, String notes, int numberOfDays, int dateTime,
+  Future<void> addModel(String drugName, String notes, int numberOfDays, int dateTime,
       int hour, int minutes, int numberOfTimes) async {
     int hours = hour;
     for (int j = 1; j <= numberOfTimes; j++) {
@@ -70,7 +70,7 @@ class DrugProvider extends ChangeNotifier {
               hour: hours,
               minutes: minutes));
           try{
-            LocalNotificationRevision.showDoa2kNotification(
+            await LocalNotificationRevision.showDoa2kNotification(
                 id: box.values.last.id,
                 year: DateTime.fromMillisecondsSinceEpoch(dateTime + (86400000 * i)).year,
                 month: DateTime.fromMillisecondsSinceEpoch(dateTime + (86400000 * i)).month,

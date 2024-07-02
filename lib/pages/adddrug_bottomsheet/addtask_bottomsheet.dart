@@ -1,3 +1,4 @@
+import 'package:doa2k/common/utils/dialog_utils.dart';
 import 'package:doa2k/provider/drug_provider.dart';
 import 'package:doa2k/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,8 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../common/utils/date_utils.dart';
-import '../../../common/widgets/custom_form_field.dart';
+import '../../common/utils/date_utils.dart';
+import '../../common/widgets/custom_form_field.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -16,15 +17,32 @@ class AddTaskBottomSheet extends StatefulWidget {
 }
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
-  TextEditingController nameController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    nameController  = TextEditingController();
+    notesController = TextEditingController();
+    selectedHour = TimeOfDay.now().hour;
+    selectedMinutes = TimeOfDay.now().minute;
+    numberOfDay = 5;
+    numberOfTimes = 3;
+  }
+  @override
+  void dispose() {
+    nameController.dispose();
+    notesController.dispose();
+    formKey.currentState?.dispose();
+    super.dispose();
+  }
+  late TextEditingController nameController;
 
-  TextEditingController notesController = TextEditingController();
+  late TextEditingController notesController;
   var formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
-  int selectedHour = TimeOfDay.now().hour;
-  int selectedMinutes = TimeOfDay.now().minute;
-  int numberOfDay = 5;
-  int numberOfTimes = 3;
+  late int selectedHour;
+  late int selectedMinutes;
+  late int numberOfDay;
+  late int numberOfTimes;
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<SettingsProvider>(context);
@@ -243,7 +261,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       return;
     }
     var provider = Provider.of<DrugProvider>(context, listen: false);
-    provider.addModel(
+    DialogUtils.showLoadingDialog(context, 'message');
+    await provider.addModel(
         nameController.text,
         notesController.text,
         numberOfDay,
@@ -251,5 +270,6 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         selectedHour,
         selectedMinutes,
         numberOfTimes,);
+    DialogUtils.hideDialog(context);
   }
 }
