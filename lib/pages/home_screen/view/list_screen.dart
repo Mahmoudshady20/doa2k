@@ -1,9 +1,5 @@
-import 'package:doa2k/pages/home_screen/component/listscreenheader.dart';
-import 'package:doa2k/pages/home_screen/component/listview_listscreen.dart';
+import 'package:doa2k/pages/home_screen/component/home_screen_body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../component/drawer_home_screen.dart';
-import '../component/floating_action.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,18 +7,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.appbartitle),
-      ),
-      floatingActionButton: const HomeFloatingActionButton(),
-      drawer: const DrawerHomeScreen(),
-      body: const Column(
-        children: [
-          ListScreenHeader(),
-          ListViewListScreen(),
-        ],
-      ),
-    );
+    return const HomeScreenBody();
   }
 }
