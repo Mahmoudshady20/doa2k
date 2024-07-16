@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/settings_provider.dart';
-import '../../../services/local_db/shared_prefrences/shared_preferences.dart';
 
+typedef MyChange = String? Function(String?)?;
 class ThemeComponent extends StatelessWidget {
-  ThemeComponent({super.key});
-  String? modeDropValue = SharedPrefs.getTheme();
+  const ThemeComponent({super.key, required this.modeDropValue,required this.myChange});
+  final String? modeDropValue; //= SharedPrefs.getTheme();
+  final MyChange myChange;
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingProvider = Provider.of<SettingsProvider>(context);
@@ -22,8 +23,7 @@ class ThemeComponent extends StatelessWidget {
             color: Theme.of(context).dividerColor,
             border: Border.all(color: const Color(0xFFD6D6D6)),
           ),
-          child: StatefulBuilder(
-            builder: (context, setState) =>  DropdownButton(
+          child: DropdownButton(
               dropdownColor:
               settingProvider.isDark() ? Colors.grey[850] : Colors.white,
               isExpanded: true,
@@ -56,13 +56,9 @@ class ThemeComponent extends StatelessWidget {
                 ),
               ],
               value: modeDropValue,
-              onChanged: (value) {
-                setState(() {
-                  modeDropValue = value;
-                });
-              },
+              onChanged: myChange,
             ),
-          ),
+
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * .05,

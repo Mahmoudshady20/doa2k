@@ -3,9 +3,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/settings_provider.dart';
 
+typedef MyChange = String? Function(String?)?;
 class FontSizeComponent extends StatelessWidget {
-  FontSizeComponent({super.key,required this.fontSizeDropValue});
-  String? fontSizeDropValue;
+  const FontSizeComponent({super.key,required this.fontSizeDropValue,required this.onChanged,});
+  final String fontSizeDropValue;
+  final MyChange onChanged;
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingProvider = Provider.of<SettingsProvider>(context);
@@ -21,8 +23,7 @@ class FontSizeComponent extends StatelessWidget {
             color: Theme.of(context).dividerColor,
             border: Border.all(color: const Color(0xFFD6D6D6)),
           ),
-          child: StatefulBuilder(
-            builder: (context, setState) =>  DropdownButton(
+          child: DropdownButton(
               dropdownColor:
               settingProvider.isDark() ? Colors.grey[850] : Colors.white,
               isExpanded: true,
@@ -77,13 +78,8 @@ class FontSizeComponent extends StatelessWidget {
                 ),
               ],
               value: fontSizeDropValue,
-              onChanged: (value) {
-                setState(() {
-                  fontSizeDropValue = value;
-                });
-              },
+              onChanged: onChanged,
             ),
-          ),
         ),
       ],
     );

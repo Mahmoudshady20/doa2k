@@ -3,9 +3,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/settings_provider.dart';
 
+typedef MyChange = String? Function(String?)?;
 class LanguageComponent extends StatelessWidget {
-  LanguageComponent({super.key, required this.languageDropValue});
-  String? languageDropValue;
+  const LanguageComponent({super.key, required this.languageDropValue,required this.myChange});
+  final String languageDropValue;
+  final MyChange myChange;
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingProvider = Provider.of<SettingsProvider>(context);
@@ -21,8 +23,7 @@ class LanguageComponent extends StatelessWidget {
             color: Theme.of(context).dividerColor,
             border: Border.all(color: const Color(0xFFD6D6D6)),
           ),
-          child: StatefulBuilder(
-            builder: (context, setState) => DropdownButton(
+          child: DropdownButton(
                 isExpanded: true,
                 dropdownColor:
                     settingProvider.isDark() ? Colors.grey[850] : Colors.white,
@@ -55,12 +56,8 @@ class LanguageComponent extends StatelessWidget {
                   ),
                 ],
                 value: languageDropValue,
-                onChanged: (value) {
-                  setState(() {
-                    languageDropValue = value!;
-                  });
-                }),
-          ),
+                onChanged:myChange,
+            ),
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * .05,

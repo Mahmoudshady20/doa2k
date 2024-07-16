@@ -60,6 +60,7 @@ class DrugProvider extends ChangeNotifier {
               },
             );
           } catch(e){
+            return;
           }
         } else {
           await box.add(Drug(
@@ -94,6 +95,7 @@ class DrugProvider extends ChangeNotifier {
               },
             );
           } catch(e){
+            return;
           }
         }
       }

@@ -16,6 +16,12 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   String? languageDropValue;
   String? fontSizeDropValue;
+  String? modeDropValue; //= SharedPrefs.getTheme();
+  @override
+  void initState() {
+    modeDropValue = SharedPrefs.getTheme();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +45,24 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: SettingsHeader(
          children: [
-            LanguageComponent(languageDropValue: languageDropValue),
-            ThemeComponent(),
-            FontSizeComponent(fontSizeDropValue: fontSizeDropValue)
+            LanguageComponent(languageDropValue: languageDropValue ?? 'ar',myChange:  (value) {
+              setState(() {
+                languageDropValue = value!;
+              });
+              return null;
+            },),
+            ThemeComponent(myChange: (value) {
+              setState(() {
+                modeDropValue = value;
+              });
+              return null;
+            },modeDropValue: modeDropValue,),
+            FontSizeComponent(fontSizeDropValue: fontSizeDropValue ?? '',onChanged: (value) {
+              setState(() {
+                fontSizeDropValue = value;
+              });
+              return null;
+            },)
           ],
       )
     );

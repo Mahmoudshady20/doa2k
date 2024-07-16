@@ -32,8 +32,8 @@ void callbackDispatcher(){
         hour: inputData['hour'],
         minutes: inputData['minutes'],
       );
-    } on PlatformException catch (e) {
-
+    } on PlatformException {
+      return Future.value(false);
     }
     return Future.value(true);
   });
