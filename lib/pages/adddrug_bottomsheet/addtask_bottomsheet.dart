@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../common/utils/date_utils.dart';
 import '../../common/widgets/custom_form_field.dart';
 
@@ -22,9 +23,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     nameController  = TextEditingController();
     notesController = TextEditingController();
     selectedHour = TimeOfDay.now().hour;
-    selectedDate = DateTime.now();
     selectedMinutes = TimeOfDay.now().minute;
-    formKey = GlobalKey<FormState>();
     numberOfDay = 5;
     numberOfTimes = 3;
   }
@@ -38,8 +37,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   late TextEditingController nameController;
 
   late TextEditingController notesController;
-  late GlobalKey<FormState> formKey;
-  late DateTime selectedDate;
+  var formKey = GlobalKey<FormState>();
+  DateTime selectedDate = DateTime.now();
   late int selectedHour;
   late int selectedMinutes;
   late int numberOfDay;

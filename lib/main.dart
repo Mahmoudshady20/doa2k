@@ -10,6 +10,7 @@ import 'package:doa2k/services/local_db/hive/drug_modeltype.dart';
 import 'package:doa2k/services/local_db/shared_prefrences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,7 +34,7 @@ void callbackDispatcher(){
         minutes: inputData['minutes'],
       );
     } on PlatformException {
-      return Future.value(false);
+
     }
     return Future.value(true);
   });
@@ -41,6 +42,7 @@ void callbackDispatcher(){
 
 void main() async {
   WidgetsFlutterBinding();
+  await MobileAds.instance.initialize();
   await LocalNotificationRevision.init();
   SharedPrefs.prefs = await SharedPreferences.getInstance();
   await Hive.initFlutter();
@@ -86,7 +88,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [
         Locale('en'), // English
-        Locale('ar'), // Spanish
+        Locale('ar'), // arabic
       ],
       locale: settingProvider.myLocal,
     );

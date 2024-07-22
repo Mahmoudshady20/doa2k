@@ -60,7 +60,6 @@ class DrugProvider extends ChangeNotifier {
               },
             );
           } catch(e){
-            return;
           }
         } else {
           await box.add(Drug(
@@ -95,7 +94,6 @@ class DrugProvider extends ChangeNotifier {
               },
             );
           } catch(e){
-            return;
           }
         }
       }
@@ -133,8 +131,9 @@ class DrugProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  deleteAll() async {
+  Future<void> deleteAll() async {
     await box.clear();
+    await LocalNotificationRevision.flutterLocalNotificationsPlugin.cancelAll();
     notifyListeners();
   }
 }

@@ -12,7 +12,7 @@
   "namerror":"Please enter name of medication",
   "noteshint": "Enter Notes",
   "notesnull":"No notes",
-  "timetotakethemedicine":"Time to take the medicine",
+  "timetotakethemedicine":"Medication time",
   "arenottaken":"The medicine was taken",
   "themedicintaken":"The medicine wasn't taken",
   "arabic":"Arabic",
