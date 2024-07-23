@@ -61,38 +61,3 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     );
   }
 }
-/**
- *   bool isInterstitialAdLoaded = false;
-    late InterstitialAd _interstitialAd;
-    @override
-    void initState() {
-    super.initState();
-    adLoaded();
-    if(isInterstitialAdLoaded == true){
-    _interstitialAd.show();
-    }
-    }
-    @override
-    void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _interstitialAd.dispose();
-    }
-
-    adLoaded() async {
-    InterstitialAd.load(
-    adUnitId: 'ca-app-pub-7674460303083384/4713599882',
-    request: const AdRequest(),
-    adLoadCallback: InterstitialAdLoadCallback(
-    onAdLoaded: (ad) {
-    setState(() {
-    _interstitialAd = ad;
-    isInterstitialAdLoaded = true;
-    });
-    },
-    onAdFailedToLoad: (error) {
-    _interstitialAd.dispose();
-    },
-    ));
-    }
- */
