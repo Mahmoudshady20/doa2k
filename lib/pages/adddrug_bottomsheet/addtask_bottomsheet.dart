@@ -2,6 +2,7 @@ import 'package:doa2k/common/utils/dialog_utils.dart';
 import 'package:doa2k/provider/drug_provider.dart';
 import 'package:doa2k/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,12 +27,31 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     selectedMinutes = TimeOfDay.now().minute;
     numberOfDay = 5;
     numberOfTimes = 3;
+    isInterstitialAdLoaded = false;
+    adLoaded();
+  }
+  adLoaded() async {
+    InterstitialAd.load(
+        adUnitId: 'ca-app-pub-7674460303083384/7560105133',
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) {
+            setState(() {
+              _interstitialAd = ad;
+              isInterstitialAdLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (error) {
+            _interstitialAd.dispose();
+          },
+        ));
   }
   @override
   void dispose() {
     nameController.dispose();
     notesController.dispose();
     formKey.currentState?.dispose();
+    _interstitialAd.dispose();
     super.dispose();
   }
   late TextEditingController nameController;
@@ -43,6 +63,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   late int selectedMinutes;
   late int numberOfDay;
   late int numberOfTimes;
+  late bool isInterstitialAdLoaded;
+  late InterstitialAd _interstitialAd;
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<SettingsProvider>(context);
@@ -215,8 +237,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 height: 15,
               ),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async{
                     addTaskButton();
+                    if(isInterstitialAdLoaded == true){
+                     await _interstitialAd.show();
+                    }
                     Navigator.pop(context);
                   },
                   child: Text(AppLocalizations.of(context)!.add))
