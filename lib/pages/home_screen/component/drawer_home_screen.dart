@@ -144,9 +144,9 @@ class DrawerHomeScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _launchUrl(Uri _url, BuildContext context) async {
-    if (await canLaunchUrl(_url)) {
-      launchUrl(_url);
+  Future<void> _launchUrl(Uri url, BuildContext context) async {
+    if (await canLaunchUrl(url)) {
+      launchUrl(url);
     } else {
       DialogUtils.showMessage(
           context, 'I cann\'t go to the specified application, try again');
