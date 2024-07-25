@@ -3,21 +3,55 @@ import 'package:doa2k/provider/drug_provider.dart';
 import 'package:doa2k/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../common/utils/date_utils.dart';
 import '../../../common/utils/dialog_utils.dart';
 
-// ignore: must_be_immutable
-class TaskItem extends StatelessWidget {
+class TaskItem extends StatefulWidget {
   final Drug model;
   final int index;
-  TaskItem({super.key, required this.model, required this.index});
-  late TimeOfDay time;
+  const TaskItem({super.key, required this.model, required this.index});
 
   @override
+  State<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
+  late TimeOfDay time;
+  late bool isInterstitialAdLoaded;
+  late InterstitialAd _interstitialAd;
+  @override
+  void initState() {
+    time = TimeOfDay(hour: widget.model.hour, minute: widget.model.minutes);
+    isInterstitialAdLoaded = false;
+    adLoaded();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _interstitialAd.dispose();
+    super.dispose();
+  }
+  adLoaded() async {
+    InterstitialAd.load(
+        adUnitId: 'ca-app-pub-7674460303083384/7560105133',
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) {
+            setState(() {
+              _interstitialAd = ad;
+              isInterstitialAdLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (error) {
+            _interstitialAd.dispose();
+          },
+        ));
+  }
+  @override
   Widget build(BuildContext context) {
-    time = TimeOfDay(hour: model.hour, minute: model.minutes);
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
       margin: const EdgeInsets.all(12),
@@ -36,8 +70,11 @@ class TaskItem extends StatelessWidget {
                 topRight: Radius.circular(12),
                 bottomRight: Radius.circular(12),
               ),
-              onPressed: (buildcontext) {
-                deleteDrug(context);
+              onPressed: (buildcontext) async{
+                deleteDrug();
+                if(isInterstitialAdLoaded == true){
+                  await _interstitialAd.show();
+                }
               },
               backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
@@ -67,12 +104,12 @@ class TaskItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${AppLocalizations.of(context)!.namemedication} : ${model.drugName}',
+                            '${AppLocalizations.of(context)!.namemedication} : ${widget.model.drugName}',
                             style: TextStyle(
                                 fontSize: settingsProvider.fontSize.toDouble(),
                                 fontWeight: FontWeight.bold,
                                 decorationThickness: 2,
-                                decoration: compareTime(time, model.dateTime)
+                                decoration: compareTime(time, widget.model.dateTime)
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
                                 color: settingsProvider.isDark()
@@ -83,7 +120,7 @@ class TaskItem extends StatelessWidget {
                             height: 18,
                           ),
                           Text(
-                            '${AppLocalizations.of(context)!.notes} :  ${model.notes}',
+                            '${AppLocalizations.of(context)!.notes} :  ${widget.model.notes}',
                             style: TextStyle(
                                 fontSize: settingsProvider.fontSize - 3,
                                 color: settingsProvider.isDark()
@@ -94,7 +131,7 @@ class TaskItem extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                              '${AppLocalizations.of(context)!.numberofdays} : ${model.numberOfDays}',
+                              '${AppLocalizations.of(context)!.numberofdays} : ${widget.model.numberOfDays}',
                               style: TextStyle(
                                   fontSize: settingsProvider.fontSize - 5,
                                   color: settingsProvider.isDark()
@@ -109,7 +146,7 @@ class TaskItem extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       color: Color(0xFFDFBD43),
                     ),
-                    child: compareTime(time, model.dateTime)
+                    child: compareTime(time, widget.model.dateTime)
                         ? Text(AppLocalizations.of(context)!.arenottaken)
                         : Text(AppLocalizations.of(context)!.themedicintaken),
                   )
@@ -121,9 +158,9 @@ class TaskItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                      model.minutes > 10
-                          ? '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${model.hour}:${model.minutes} '
-                          : '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${model.hour}:0${model.minutes} ',
+                      widget.model.minutes > 10
+                          ? '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${widget.model.hour}:${widget.model.minutes} '
+                          : '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${widget.model.hour}:0${widget.model.minutes} ',
                       style: TextStyle(
                           fontSize: settingsProvider.fontSize - 3,
                           color: settingsProvider.isDark()
@@ -145,8 +182,7 @@ class TaskItem extends StatelessWidget {
     );
   }
 
-  // void deleteTask() {
-  void deleteDrug(BuildContext context) {
+  void deleteDrug(){
     var provider = Provider.of<DrugProvider>(context, listen: false);
 
     DialogUtils.infoDialog(
@@ -156,10 +192,10 @@ class TaskItem extends StatelessWidget {
       okBtn: AppLocalizations.of(context)!.deletePotion,
       cancelBtn: AppLocalizations.of(context)!.deleteAll,
       childAction2: () {
-        provider.deleteMedication(model.drugName,model.notes);
+        provider.deleteMedication(widget.model.drugName,widget.model.notes);
       },
       childAction1: () {
-        provider.deletePotion(model.id);
+        provider.deletePotion(widget.model.id);
       },
     );
   }

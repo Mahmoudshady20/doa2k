@@ -1,6 +1,7 @@
 import 'package:doa2k/provider/drug_provider.dart';
 import 'package:doa2k/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -21,7 +22,35 @@ class _ListScreenHeaderState extends State<ListScreenHeader> {
   DateTime? focusedDate;
 
   CalendarFormat calendarFormat = CalendarFormat.week;
-
+  late bool isInterstitialAdLoaded;
+  late InterstitialAd _interstitialAd;
+  @override
+  void initState() {
+    super.initState();
+    isInterstitialAdLoaded = false;
+    adLoaded();
+  }
+  adLoaded() async {
+    InterstitialAd.load(
+        adUnitId: 'ca-app-pub-7674460303083384/7560105133',
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) {
+            setState(() {
+              _interstitialAd = ad;
+              isInterstitialAdLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (error) {
+            _interstitialAd.dispose();
+          },
+        ));
+  }
+  @override
+  void dispose() {
+    _interstitialAd.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<DrugProvider>(context);
@@ -46,10 +75,13 @@ class _ListScreenHeaderState extends State<ListScreenHeader> {
           });
           provider.updateShowTime(selectedDay, focusedDay);
         },
-        onFormatChanged: (format) {
+        onFormatChanged: (format) async{
           setState(() {
             calendarFormat = format;
           });
+          if(isInterstitialAdLoaded == true){
+            await _interstitialAd.show();
+          }
         },
         daysOfWeekStyle: settingProvider.isDark() ? const DaysOfWeekStyle(
           weekdayStyle: TextStyle(
