@@ -1,3 +1,4 @@
+import 'package:doa2k/common/utils/app_styles.dart';
 import 'package:doa2k/models/drug_model.dart';
 import 'package:doa2k/provider/drug_provider.dart';
 import 'package:doa2k/provider/settings_provider.dart';
@@ -29,11 +30,13 @@ class _TaskItemState extends State<TaskItem> {
     adLoaded();
     super.initState();
   }
+
   @override
   void dispose() {
     _interstitialAd.dispose();
     super.dispose();
   }
+
   adLoaded() async {
     InterstitialAd.load(
         adUnitId: 'ca-app-pub-7674460303083384/7560105133',
@@ -50,6 +53,7 @@ class _TaskItemState extends State<TaskItem> {
           },
         ));
   }
+
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
@@ -63,16 +67,16 @@ class _TaskItemState extends State<TaskItem> {
             SlidableAction(
               borderRadius: settingsProvider.myLocal == const Locale('en')
                   ? const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              )
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                    )
                   : const BorderRadius.only(
-                topRight: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
-              onPressed: (buildcontext) async{
+                      topRight: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
+              onPressed: (buildcontext) async {
                 deleteDrug();
-                if(isInterstitialAdLoaded == true){
+                if (isInterstitialAdLoaded == true) {
                   await _interstitialAd.show();
                 }
               },
@@ -101,68 +105,74 @@ class _TaskItemState extends State<TaskItem> {
                 children: [
                   Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${AppLocalizations.of(context)!.namemedication} : ${widget.model.drugName}',
-                            style: TextStyle(
-                                fontSize: settingsProvider.fontSize.toDouble(),
-                                fontWeight: FontWeight.bold,
-                                decorationThickness: 2,
-                                decoration: compareTime(time, widget.model.dateTime)
-                                    ? TextDecoration.lineThrough
-                                    : TextDecoration.none,
-                                color: settingsProvider.isDark()
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                          const SizedBox(
-                            height: 18,
-                          ),
-                          Text(
-                            '${AppLocalizations.of(context)!.notes} :  ${widget.model.notes}',
-                            style: TextStyle(
-                                fontSize: settingsProvider.fontSize - 3,
-                                color: settingsProvider.isDark()
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                              '${AppLocalizations.of(context)!.numberofdays} : ${widget.model.numberOfDays}',
-                              style: TextStyle(
-                                  fontSize: settingsProvider.fontSize - 5,
-                                  color: settingsProvider.isDark()
-                                      ? Colors.white
-                                      : Colors.black)),
-                        ],
-                      )),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${AppLocalizations.of(context)!.namemedication} : ${widget.model.drugName}',
+                        style: TextStyle(
+                            fontSize: AppStyles.getResponsiveFontSize(context,
+                                fontSize: settingsProvider.fontSize.toDouble()),
+                            fontWeight: FontWeight.bold,
+                            decorationThickness: 2,
+                            decoration: compareTime(time, widget.model.dateTime)
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            color: settingsProvider.isDark()
+                                ? Colors.white
+                                : Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        '${AppLocalizations.of(context)!.notes} :  ${widget.model.notes}',
+                        style: TextStyle(
+                            fontSize: AppStyles.getResponsiveFontSize(context,
+                                fontSize: settingsProvider.fontSize - 3),
+                            color: settingsProvider.isDark()
+                                ? Colors.white
+                                : Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                          '${AppLocalizations.of(context)!.numberofdays} : ${widget.model.numberOfDays}',
+                          style: TextStyle(
+                              fontSize: AppStyles.getResponsiveFontSize(context,
+                                  fontSize: settingsProvider.fontSize - 5),
+                              color: settingsProvider.isDark()
+                                  ? Colors.white
+                                  : Colors.black)),
+                    ],
+                  )),
                   Container(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       color: Color(0xFFDFBD43),
                     ),
                     child: compareTime(time, widget.model.dateTime)
-                        ? Text(AppLocalizations.of(context)!.arenottaken)
+                        ? Text(
+                            AppLocalizations.of(context)!.arenottaken,
+                          )
                         : Text(AppLocalizations.of(context)!.themedicintaken),
                   )
                 ],
               ),
               const SizedBox(
-                height: 8,
+                height: 5,
               ),
               Row(
                 children: [
                   Text(
-                      widget.model.minutes > 10
-                          ? '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${widget.model.hour}:${widget.model.minutes} '
-                          : '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${widget.model.hour}:0${widget.model.minutes} ',
+                      widget.model.minutes >= 10
+                          ? '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${widget.model.hour > 12 ? widget.model.hour -12 : widget.model.hour}:${widget.model.minutes} ${widget.model.timeCol}'
+                          : '${AppLocalizations.of(context)!.timetotakethemedicine} :  ${widget.model.hour > 12 ? widget.model.hour -12 : widget.model.hour}:0${widget.model.minutes} ${widget.model.timeCol}',
                       style: TextStyle(
-                          fontSize: settingsProvider.fontSize - 3,
+                          fontSize: AppStyles.getResponsiveFontSize(context,
+                              fontSize: settingsProvider.fontSize - 3),
                           color: settingsProvider.isDark()
                               ? Colors.white
                               : Colors.black)),
@@ -182,7 +192,7 @@ class _TaskItemState extends State<TaskItem> {
     );
   }
 
-  void deleteDrug(){
+  void deleteDrug() {
     var provider = Provider.of<DrugProvider>(context, listen: false);
 
     DialogUtils.infoDialog(
@@ -192,7 +202,7 @@ class _TaskItemState extends State<TaskItem> {
       okBtn: AppLocalizations.of(context)!.deletePotion,
       cancelBtn: AppLocalizations.of(context)!.deleteAll,
       childAction2: () {
-        provider.deleteMedication(widget.model.drugName,widget.model.notes);
+        provider.deleteMedication(widget.model.drugName, widget.model.notes);
       },
       childAction1: () {
         provider.deletePotion(widget.model.id);
@@ -202,11 +212,11 @@ class _TaskItemState extends State<TaskItem> {
 
   bool compareTime(TimeOfDay time, int dateTime) {
     if (dateTime ==
-        MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
+            MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
         TimeOfDay.now().hour > time.hour) {
       return true;
     } else if (dateTime ==
-        MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
+            MyDateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch &&
         TimeOfDay.now().hour == time.hour &&
         TimeOfDay.now().minute > time.minute) {
       return true;

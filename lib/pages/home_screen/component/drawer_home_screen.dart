@@ -1,4 +1,5 @@
 import 'package:doa2k/common/utils/dialog_utils.dart';
+import 'package:doa2k/pages/how_to_screen/how_to_use.dart';
 import 'package:doa2k/pages/setting_screen/view/setting_screen.dart';
 import 'package:doa2k/provider/drug_provider.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class DrawerHomeScreen extends StatelessWidget {
   const DrawerHomeScreen({super.key});
@@ -36,13 +36,13 @@ class DrawerHomeScreen extends StatelessWidget {
                 ),
                 Text(
                   AppLocalizations.of(context)!.home,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
+          ),
+          const SizedBox(
+            height: 15,
           ),
           InkWell(
             onTap: () {
@@ -61,13 +61,13 @@ class DrawerHomeScreen extends StatelessWidget {
                 ),
                 Text(
                   AppLocalizations.of(context)!.settings,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall,
                 )
               ],
             ),
+          ),
+          const SizedBox(
+            height: 15,
           ),
           InkWell(
             onTap: () {
@@ -80,7 +80,7 @@ class DrawerHomeScreen extends StatelessWidget {
                 childAction2: () {
                   Navigator.pop(context);
                 },
-                childAction1: (){
+                childAction1: () {
                   provider.deleteAll();
                 },
               );
@@ -97,47 +97,77 @@ class DrawerHomeScreen extends StatelessWidget {
                 ),
                 Text(
                   AppLocalizations.of(context)!.deleteA,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
           ),
+          const SizedBox(
+            height: 15,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, HowToUse.routeName);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.info_outline,
+                  size: 24,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  AppLocalizations.of(context)!.howTo,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
           const Spacer(),
           Text(
             AppLocalizations.of(context)!.contact,
-            style: Theme
-                .of(context)
-                .textTheme
-                .bodySmall,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
                 icon: const FaIcon(FontAwesomeIcons.facebookF, size: 32),
-                onPressed: () async{
-                  await _launchUrl(Uri.parse('https://www.facebook.com/mahmoud.shady.7927/'),context);
-                },),
+                onPressed: () async {
+                  await _launchUrl(
+                      Uri.parse('https://www.facebook.com/mahmoud.shady.7927/'),
+                      context);
+                },
+              ),
               IconButton(
                 icon: const FaIcon(FontAwesomeIcons.instagram, size: 32),
-                onPressed: () async{
-                  await _launchUrl(Uri.parse('https://www.instagram.com/sheks_app?igsh=N29kbjF5cjVodWsw&utm_source=qr'),context);
-                },),
+                onPressed: () async {
+                  await _launchUrl(
+                      Uri.parse(
+                          'https://www.instagram.com/sheks_app?igsh=N29kbjF5cjVodWsw&utm_source=qr'),
+                      context);
+                },
+              ),
               IconButton(
                 icon: const FaIcon(FontAwesomeIcons.linkedinIn, size: 32),
-                onPressed: () async{
-                  await _launchUrl(Uri.parse('https://www.linkedin.com/in/mahmoud-shady-9b8ab0229/'),context);
-                },),
+                onPressed: () async {
+                  await _launchUrl(
+                      Uri.parse(
+                          'https://www.linkedin.com/in/mahmoud-shady-9b8ab0229/'),
+                      context);
+                },
+              ),
             ],
           ),
           SizedBox(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * 0.01,
+            height: MediaQuery.of(context).size.height * 0.01,
           ),
         ],
       ),

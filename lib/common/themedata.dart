@@ -25,7 +25,7 @@ class MyThemeData {
           fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
       centerTitle: true,
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Color(0xFFFFFDF4),
     ),
     iconTheme: const IconThemeData(
         color: Colors.black

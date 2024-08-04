@@ -1,4 +1,5 @@
 import 'package:doa2k/models/drug_model.dart';
+import 'package:doa2k/pages/how_to_screen/how_to_use.dart';
 import 'package:doa2k/pages/home_screen/view/list_screen.dart';
 import 'package:doa2k/pages/setting_screen/view/setting_screen.dart';
 import 'package:doa2k/services/notification_local.dart';
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (context) => const HomeScreen(),
         SettingScreen.routeName: (context) => const SettingScreen(),
         SplashScreen.routeName: (context) => const SplashScreen(),
+        HowToUse.routeName: (context) => const HowToUse(),
       },
       initialRoute: SplashScreen.routeName,
       localizationsDelegates: const [

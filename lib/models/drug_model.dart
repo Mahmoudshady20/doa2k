@@ -6,6 +6,7 @@ class Drug {
   int dateTime;
   int hour;
   int minutes;
+  String timeCol;
   late int id;
   Drug({
     required this.drugName,
@@ -14,6 +15,7 @@ class Drug {
     required this.dateTime,
     required this.hour,
     required this.minutes,
+    required this.timeCol,
   }) {
     id = idsGenerator;
     idsGenerator++;

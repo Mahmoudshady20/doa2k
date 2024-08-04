@@ -31,6 +31,7 @@ class DrugProvider extends ChangeNotifier {
           await box.add(Drug(
               drugName: drugName,
               notes: notes,
+              timeCol: hours > 12 ? 'مساء' : 'صباحا',
               numberOfDays: numberOfDays,
               dateTime: dateTime,
               hour: hours,
@@ -65,6 +66,7 @@ class DrugProvider extends ChangeNotifier {
           await box.add(Drug(
               drugName: drugName,
               notes: notes,
+              timeCol: hours > 12 ? 'مساء' : 'صباحا',
               numberOfDays: numberOfDays,
               dateTime: dateTime + (86400000 * i),
               hour: hours,

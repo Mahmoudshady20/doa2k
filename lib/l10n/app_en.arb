@@ -1,7 +1,7 @@
 {
   "appbartitle": "Doa2k",
   "newmedication": "Add new medication",
-  "namemedication":"Name of medication",
+  "namemedication":"Name",
   "notes": "Notes",
   "numberofdays":"Number of days",
   "numberoftimes": "Number of times to take it per day",
@@ -13,8 +13,8 @@
   "noteshint": "Enter Notes",
   "notesnull":"No notes",
   "timetotakethemedicine":"Medication time",
-  "arenottaken":"The medicine was taken",
-  "themedicintaken":"The medicine wasn't taken",
+  "arenottaken":"was taken",
+  "themedicintaken":"wasn't taken",
   "arabic":"Arabic",
   "english":"English",
   "language": "Language",
@@ -33,7 +33,7 @@
   "deletePotion": "Delete this dose",
   "deleteAll": "Delete all potions",
   "deleteA": "Delete all",
-  "contact": "Contact Us"
-
-
+  "contact": "Contact Us",
+  "please": "Please Wait",
+  "howTo": "How to use"
 }
