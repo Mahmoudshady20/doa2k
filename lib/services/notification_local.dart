@@ -11,7 +11,7 @@ class LocalNotificationRevision {
   static void Function(NotificationResponse)? onDidReceiveNotificationResponse;
 
   static Future init() async {
-   // flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
+    // flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
     InitializationSettings settings = const InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: DarwinInitializationSettings());
@@ -36,26 +36,36 @@ class LocalNotificationRevision {
     NotificationDetails details = const NotificationDetails(
         android: AndroidNotificationDetails('id 1', 'repeated notification',
             importance: Importance.max, priority: Priority.high));
-    await flutterLocalNotificationsPlugin.periodicallyShow(0,
-        'repeated notification', 'body', RepeatInterval.values[DateTime.tuesday], details,
+    await flutterLocalNotificationsPlugin.periodicallyShow(
+        0,
+        'repeated notification',
+        'body',
+        RepeatInterval.values[DateTime.tuesday],
+        details,
         payload: "PayLoad Data");
   }
 
   static Future<void> showDoa2kNotification(
       {required int year,
       required int id,
-        required String drugName,
-        required String drugDesc,
+      required String drugName,
+      required String drugDesc,
       required int month,
       required int day,
       required int hour,
       required int minutes}) async {
     NotificationDetails details = NotificationDetails(
-        android: AndroidNotificationDetails('id 3', 'doa2k notification',
-            icon: '@mipmap/ic_launcher',
-            playSound: true,
-            sound: RawResourceAndroidNotificationSound('notification.mp3'.split('.').first),
-            importance: Importance.max, priority: Priority.high));
+        android: AndroidNotificationDetails(
+      'id 3',
+      'doa2k notification',
+      icon: '@mipmap/ic_launcher',
+      playSound: true,
+      sound: RawResourceAndroidNotificationSound(
+          'notification.mp3'.split('.').first),
+      importance: Importance.max,
+      priority: Priority.high,
+      fullScreenIntent: true,
+    ));
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
