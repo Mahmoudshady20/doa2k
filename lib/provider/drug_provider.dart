@@ -61,6 +61,7 @@ class DrugProvider extends ChangeNotifier {
               },
             );
           } catch(e){
+            debugPrint('Failed to wake up screen');
           }
         } else {
           await box.add(Drug(
@@ -96,6 +97,7 @@ class DrugProvider extends ChangeNotifier {
               },
             );
           } catch(e){
+            debugPrint('Failed to wake up screen');
           }
         }
       }

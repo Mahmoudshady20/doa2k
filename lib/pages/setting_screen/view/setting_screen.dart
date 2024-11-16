@@ -14,11 +14,12 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  String? languageDropValue;
-  String? fontSizeDropValue;
-
+  late String? languageDropValue;
+  late String? fontSizeDropValue;
+  late String? modeDropValue;
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    modeDropValue = SharedPrefs.getTheme();
     if (SharedPrefs.getLan() == 'ar') {
       languageDropValue = 'arabic';
     } else {
@@ -26,24 +27,44 @@ class _SettingScreenState extends State<SettingScreen> {
     }
     if (SharedPrefs.getTextSize() == 20) {
       fontSizeDropValue = AppLocalizations.of(context)?.small ?? '';
-    } else if(SharedPrefs.getTextSize() == 22) {
+    } else if (SharedPrefs.getTextSize() == 22) {
       fontSizeDropValue = AppLocalizations.of(context)?.medium ?? '';
-    } else if(SharedPrefs.getTextSize() == 24) {
+    } else if (SharedPrefs.getTextSize() == 24) {
       fontSizeDropValue = AppLocalizations.of(context)?.large ?? '';
-    } else if(SharedPrefs.getTextSize() == 28) {
+    } else if (SharedPrefs.getTextSize() == 28) {
       fontSizeDropValue = AppLocalizations.of(context)?.veryLarge ?? '';
     }
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.appbartitle),
-      ),
-      body: SettingsHeader(
-         children: [
-            LanguageComponent(languageDropValue: languageDropValue),
-            ThemeComponent(),
-            FontSizeComponent(fontSizeDropValue: fontSizeDropValue)
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.appbartitle),
+        ),
+        body: SettingsHeader(
+          children: [
+            LanguageComponent(languageDropValue: languageDropValue,onChanged: (value) {
+              setState(() {
+                languageDropValue = value!;
+              });
+            },),
+            ThemeComponent(
+              modeDropValue: modeDropValue,
+              onChanged:  (value) {
+              setState(() {
+                modeDropValue = value;
+              });
+            },),
+            FontSizeComponent(
+              fontSizeDropValue: fontSizeDropValue,
+              onChanged: (value) {
+                setState(() {
+                  fontSizeDropValue = value;
+                });
+              },
+            ),
           ],
-      )
-    );
+        ));
   }
 }

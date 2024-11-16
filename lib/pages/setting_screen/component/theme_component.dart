@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/settings_provider.dart';
-import '../../../services/local_db/shared_prefrences/shared_preferences.dart';
 
 class ThemeComponent extends StatelessWidget {
-  ThemeComponent({super.key});
-  String? modeDropValue = SharedPrefs.getTheme();
+  const ThemeComponent({super.key,required this.modeDropValue,required this.onChanged,});
+
+  final String? modeDropValue;
+  final void Function(String?)? onChanged;
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingProvider = Provider.of<SettingsProvider>(context);
@@ -56,11 +57,7 @@ class ThemeComponent extends StatelessWidget {
                 ),
               ],
               value: modeDropValue,
-              onChanged: (value) {
-                setState(() {
-                  modeDropValue = value;
-                });
-              },
+              onChanged: onChanged,
             ),
           ),
         ),

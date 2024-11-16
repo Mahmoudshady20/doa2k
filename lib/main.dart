@@ -35,7 +35,7 @@ void callbackDispatcher(){
         minutes: inputData['minutes'],
       );
     } on PlatformException {
-
+      debugPrint('Failed to wake up screen');
     }
     return Future.value(true);
   });

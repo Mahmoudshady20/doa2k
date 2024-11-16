@@ -4,8 +4,13 @@ import 'package:provider/provider.dart';
 import '../../../provider/settings_provider.dart';
 
 class LanguageComponent extends StatelessWidget {
-  LanguageComponent({super.key, required this.languageDropValue});
-  String? languageDropValue;
+  const LanguageComponent({
+    super.key,
+    required this.languageDropValue,
+    required this.onChanged,
+  });
+  final String? languageDropValue;
+  final void Function(String?)? onChanged;
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingProvider = Provider.of<SettingsProvider>(context);
@@ -23,43 +28,40 @@ class LanguageComponent extends StatelessWidget {
           ),
           child: StatefulBuilder(
             builder: (context, setState) => DropdownButton(
-                isExpanded: true,
-                dropdownColor:
-                    settingProvider.isDark() ? Colors.grey[850] : Colors.white,
-                underline: Container(
-                  color: Colors.transparent,
-                ),
-                padding: const EdgeInsets.only(right: 8, left: 8),
-                items: [
-                  DropdownMenuItem(
-                    onTap: () {
-                      settingProvider.enableArabic();
-                    },
-                    value: 'arabic',
-                    child: Text(
-                      AppLocalizations.of(context)!.arabic,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
+              isExpanded: true,
+              dropdownColor:
+                  settingProvider.isDark() ? Colors.grey[850] : Colors.white,
+              underline: Container(
+                color: Colors.transparent,
+              ),
+              padding: const EdgeInsets.only(right: 8, left: 8),
+              items: [
+                DropdownMenuItem(
+                  onTap: () {
+                    settingProvider.enableArabic();
+                  },
+                  value: 'arabic',
+                  child: Text(
+                    AppLocalizations.of(context)!.arabic,
+                    style: const TextStyle(
+                      fontSize: 16,
                     ),
                   ),
-                  DropdownMenuItem(
-                    onTap: () {
-                      settingProvider.enableEnglish();
-                    },
-                    value: 'english',
-                    child: Text(AppLocalizations.of(context)!.english,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        )),
-                  ),
-                ],
-                value: languageDropValue,
-                onChanged: (value) {
-                  setState(() {
-                    languageDropValue = value!;
-                  });
-                }),
+                ),
+                DropdownMenuItem(
+                  onTap: () {
+                    settingProvider.enableEnglish();
+                  },
+                  value: 'english',
+                  child: Text(AppLocalizations.of(context)!.english,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      )),
+                ),
+              ],
+              value: languageDropValue,
+              onChanged: onChanged,
+            ),
           ),
         ),
         SizedBox(

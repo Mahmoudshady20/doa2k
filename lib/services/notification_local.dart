@@ -23,27 +23,28 @@ class LocalNotificationRevision {
     );
   }
 
-  static void showBasicNotification() async {
-    NotificationDetails details = const NotificationDetails(
-        android: AndroidNotificationDetails('id 1', 'basic notification',
-            importance: Importance.max, priority: Priority.high));
-    await flutterLocalNotificationsPlugin.show(
-        0, 'basic notification', 'body', details,
-        payload: "PayLoad Data");
-  }
+  // static void showBasicNotification() async {
+  //   NotificationDetails details = const NotificationDetails(
+  //       android: AndroidNotificationDetails('id 1', 'basic notification',
+  //           importance: Importance.max, priority: Priority.high));
+  //   await flutterLocalNotificationsPlugin.show(
+  //       0, 'basic notification', 'body', details,
+  //       payload: "PayLoad Data");
+  // }
 
-  static void showRepeatedNotification() async {
-    NotificationDetails details = const NotificationDetails(
-        android: AndroidNotificationDetails('id 1', 'repeated notification',
-            importance: Importance.max, priority: Priority.high));
-    await flutterLocalNotificationsPlugin.periodicallyShow(
-        0,
-        'repeated notification',
-        'body',
-        RepeatInterval.values[DateTime.tuesday],
-        details,
-        payload: "PayLoad Data");
-  }
+  // static void showRepeatedNotification() async {
+  //   NotificationDetails details = const NotificationDetails(
+  //       android: AndroidNotificationDetails('id 1', 'repeated notification',
+  //           importance: Importance.max, priority: Priority.high));
+  //   await flutterLocalNotificationsPlugin.periodicallyShow(
+  //       0,
+  //       'repeated notification',
+  //       'body',
+  //       RepeatInterval.values[DateTime.tuesday],
+  //       details,
+  //       payload: "PayLoad Data",
+  //       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
+  // }
 
   static Future<void> showDoa2kNotification(
       {required int year,
@@ -72,7 +73,8 @@ class LocalNotificationRevision {
     await flutterLocalNotificationsPlugin.zonedSchedule(id, drugName, drugDesc,
         tz.TZDateTime(tz.local, year, month, day, hour, minutes), details,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
   }
 
   static void cancelNotification(int id) async {
