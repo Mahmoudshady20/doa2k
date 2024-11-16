@@ -1,65 +1,104 @@
-![Doa2k Logo](link-to-logo-image-if-any) <!-- Optional: Add a link to an image/logo if you have one -->
+<div align="center">
+    <img src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=35&center=true&vCenter=true&width=500&height=70&duration=4000&lines=Welcome+to+Doa2k!+📱;+Your+Medication+Companion!+💊" />
+</div>
 
-**Doa2k** is a mobile application designed to help users manage and track their medication schedules easily. The app provides reminders, dosage tracking, and personalized notifications to ensure users never miss their medications. Available on Google Play [here](https://play.google.com/store/apps/details?id=com.mahmoudshady.doa2k).
+<br>
 
-## Features
+## 📝 About Doa2k:
 
-- **Medication Reminders**: Set reminders for each medication with custom schedules.
-- **Dosage Tracking**: Track dosage history and maintain a log of medications taken.
-- **Notifications**: Timely notifications for scheduled medications.
-- **Customizable Schedules**: Set specific times, intervals, and dates for each medication.
-- **User-friendly Interface**: Simple, intuitive design for all age groups.
+**"دوائك" (Doa2k)** is a user-friendly mobile application designed to help users manage their medication schedules effectively. With features like reminders, detailed medication logs, and a simple UI, it ensures that users never miss their important dosages.
 
-## Installation
+### Key Features:
+- 🕒 **Smart Reminders**: Set recurring alarms for medications.
+- 📋 **Medication Logs**: Track your daily dosage history.
+- 📈 **User Insights**: Analyze your adherence through visual graphs.
+- 🌙 **Night Mode**: User-friendly design with dark mode support.
+- 🔗 **Cross-Device Synchronization**: Easily sync your data using Firebase.
 
-To run this project locally:
+<br>
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" />
+</div>
+<br>
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/doa2k.git
-   cd doa2k
-   ```
+## 📲 Installation Guide:
 
-2. Ensure Flutter is installed on your machine. For setup instructions, see [Flutter Installation](https://flutter.dev/docs/get-started/install).
+You can download **Doa2k** directly from the Google Play Store:  
+[![Download from Google Play](https://img.shields.io/badge/Google%20Play-Doa2k-green?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.mahmoudshady.doa2k)
 
-3. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
+<br>
 
-4. Run the app:
-   ```bash
-   flutter run
-   ```
+## 🚀 Technologies Used:
+<div align="center">
+    <img src="https://skillicons.dev/icons?i=flutter,dart,firebase,hive,androidstudio" />
+    <img src="https://skillicons.dev/icons?i=github,vscode" />
+</div>
 
-## Permissions
+<br>
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" />
+</div>
+<br>
 
-The Doa2k app requests the following permissions:
+## 🛠️ How to Use:
 
-- **RECEIVE_BOOT_COMPLETED**: To restart notifications after device reboots.
-- **SCHEDULE_EXACT_ALARM**: For precise medication reminders.
-- **USE_FULL_SCREEN_INTENT**: To display high-priority notifications in full screen.
-- **WAKE_LOCK**: To keep the device awake for critical reminders.
+1. **Click on the plus sign** to add the medicine.  
+2. **Enter the name of the medicine** in the first box.  
+3. **Enter the medicine notes** in the second box, such as "before or after eating."  
+4. **Choose the number of days** to take the medicine.  
+5. **Choose the number of times** to take the medicine per day.  
+6. **Select the time** you will take the medicine for the first time.  
+7. **Select the date** you will take the medicine for the first time.  
+8. **Click on the add button.**  
 
-## Usage
+### Automatic Scheduling:
+After these steps, the application will automatically generate the rest of the medicine dates on the specified days and all the times when the medicine should be taken. This is based on the initial dose date and time.  
 
-1. Open the app and set up your medication profile.
-2. Add each medication, including name, dosage, frequency, and start/end dates.
-3. Enable notifications to receive reminders.
-4. Track your medication intake and view history in the app.
+### Notifications:
+The app will send you notifications and alerts to remind you of the medicine schedule. Stay worry-free with **Doa2k!**
 
-## Contributing
+<br>
 
-Contributions are welcome! If you’d like to contribute to Doa2k, please follow these steps:
+## 🎯 Future Improvements:
+- 🔄 Support for multi-language notifications.
+- 🌍 Localization for different regions.
+- 📊 Advanced analytics for medication tracking.
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/YourFeature`).
-3. Make your changes and commit them (`git commit -m 'Add your message here'`).
-4. Push to the branch (`git push origin feature/YourFeature`).
-5. Open a Pull Request.
+<br>
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" />
+</div>
+<br>
 
-## License
+## 🤝 Connect With Me:
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
- 
+<div align="center">
+    <a href="https://www.linkedin.com/in/mahmoud-shady-9b8ab0229/" target="_blank">
+        <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+    </a>
+    <a href="mailto:mahmoud.enshagshan0@gmail.com">
+        <img src="https://img.shields.io/badge/Gmail-333333?style=for-the-badge&logo=gmail&logoColor=red" />
+    </a>
+    <a href="https://www.instagram.com/mahmoudshady__/">
+        <img src="https://img.shields.io/badge/Instagram-red?style=for-the-badge&logo=instagram&logoColor=white" />
+    </a>
+    <a href="https://t.me/mahmoudshady2">
+        <img src="https://img.shields.io/badge/Telegram-0077B5?style=for-the-badge&logo=telegram&logoColor=white" />
+    </a>
+</div>
+
+<br>
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" />
+</div>
+<br>
+
+## ❤️ Acknowledgments:
+
+- Thanks to all contributors who made **Doa2k** a reality.
+- Special thanks to the **Flutter community** for their guidance and tools.
+
+<h3 align="center">
+    <img src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=25&center=true&vCenter=true&width=500&height=70&duration=4000&lines=Thank+you+for+visiting!+🌟;+Download+Doa2k+today!;">
+</h3>
 
