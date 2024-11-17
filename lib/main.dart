@@ -1,25 +1,26 @@
-import 'package:doa2k/models/drug_model.dart';
-import 'package:doa2k/pages/how_to_screen/how_to_use.dart';
-import 'package:doa2k/pages/home_screen/view/list_screen.dart';
-import 'package:doa2k/pages/setting_screen/view/setting_screen.dart';
-import 'package:doa2k/services/notification_local.dart';
-import 'package:doa2k/provider/drug_provider.dart';
-import 'package:doa2k/provider/settings_provider.dart';
-import 'package:doa2k/common/themedata.dart';
-import 'package:doa2k/pages/splash_screen/splash_screen.dart';
-import 'package:doa2k/services/local_db/hive/drug_modeltype.dart';
-import 'package:doa2k/services/local_db/shared_prefrences/shared_preferences.dart';
+import 'package:doa2k/core/local_db/hive/drug_modeltype.dart';
+import 'package:doa2k/core/local_db/shared_pref/shared_preferences.dart';
+import 'package:doa2k/core/services/notification_local.dart';
+import 'package:doa2k/feature/home_screen/domain/entity/drug_entity.dart';
+import 'package:doa2k/feature/home_screen/presentation/manager/drug_provider.dart';
+import 'package:doa2k/feature/home_screen/presentation/views/list_screen.dart';
+import 'package:doa2k/feature/how_to_use/presentation/view/how_to_use.dart';
+import 'package:doa2k/feature/setting_screen/presentation/manager/settings_provider.dart';
+import 'package:doa2k/feature/splash_screen/splash_screen.dart';
+import 'package:doa2k/shared/my_theme/themedata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:workmanager/workmanager.dart';
 
-void callbackDispatcher(){
+import 'feature/setting_screen/presentation/views/setting_view.dart';
+
+void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     const platform = MethodChannel('com.example.doa2k/wakelock');
     try {
@@ -57,6 +58,9 @@ void main() async {
     ChangeNotifierProvider<SettingsProvider>(
       create: (context) => SettingsProvider()..init(),
     ),
+    // Provider<SettingsProvider>(
+    //   create: (context) => getIt.get<SettingsProvider>(),
+    // ),
     ChangeNotifierProvider<DrugProvider>(
       create: (context) => DrugProvider(),
     ),
@@ -69,7 +73,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var settingProvider = Provider.of<SettingsProvider>(context);
+    SettingsProvider settingProvider = Provider.of<SettingsProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: MyThemeData.lightTheme,
@@ -77,7 +81,7 @@ class MyApp extends StatelessWidget {
       themeMode: settingProvider.themeMode,
       routes: {
         HomeScreen.routeName: (context) => const HomeScreen(),
-        SettingScreen.routeName: (context) => const SettingScreen(),
+        SettingView.routeName: (context) => const SettingView(),
         SplashScreen.routeName: (context) => const SplashScreen(),
         HowToUse.routeName: (context) => const HowToUse(),
       },
