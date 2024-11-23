@@ -14,6 +14,7 @@
 - 📈 **User Insights**: Analyze your adherence through visual graphs.
 - 🌙 **Night Mode**: User-friendly design with dark mode support.
 - 🔗 **Cross-Device Synchronization**: Easily sync your data using Firebase.
+- 🔔 **Timely Notifications**: Flutter Local Notifications ensure you never miss a dose.
 
 <br>
 <div align="center">
@@ -30,9 +31,14 @@ You can download **Doa2k** directly from the Google Play Store:
 
 ## 🚀 Technologies Used:
 <div align="center">
-    <img src="https://skillicons.dev/icons?i=flutter,dart,firebase,hive,androidstudio" />
+    <img src="https://skillicons.dev/icons?i=flutter,dart,firebase,androidstudio" />
     <img src="https://skillicons.dev/icons?i=github,vscode" />
 </div>
+
+### Additional Tools and Architecture:
+- 🗄️ **Hive & SharedPreferences**: Efficient local storage.
+- 📱 **Flutter Local Notifications**: Seamless in-app notifications.
+- 🧹 **Clean Architecture**: Scalable and maintainable code structure.
 
 <br>
 <div align="center">
@@ -101,4 +107,3 @@ The app will send you notifications and alerts to remind you of the medicine sch
 <h3 align="center">
     <img src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=25&center=true&vCenter=true&width=500&height=70&duration=4000&lines=Thank+you+for+visiting!+🌟;+Download+Doa2k+today!;">
 </h3>
-
