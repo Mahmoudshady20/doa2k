@@ -131,10 +131,64 @@ Follow these steps to run or contribute to **Doa2k**:
 ## 📱 UI and Functionality:
 
 ### Screenshots:
-<div align="center">
-    <img src="https://github.com/YourRepository/Doa2k/assets/ui1.png" alt="Home Screen" width="200" />
-    <img src="https://github.com/YourRepository/Doa2k/assets/ui2.png" alt="Logs Screen" width="200" />
-</div>
+<table>
+  <tbody>
+      <tr>
+          <td>
+     <h3>Splash Screen</h3>
+      </td>
+          <td>
+     <h3>Drawer</h3>
+      </td>
+      <td>
+     <h3>Setting Screen</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+         <img src="https://github.com/user-attachments/assets/cdc303f2-7e90-4563-933c-267362ebab2f" alt="Splash Screen" width="200" />
+      </td>
+         <td>
+         <img src="https://github.com/user-attachments/assets/031ffcaf-42ba-46c2-a741-c266f0c9be62" alt="Drawer" width="200" />
+      </td>
+         <td>
+         <img src="https://github.com/user-attachments/assets/c3629ad0-b445-4ce3-ab3e-669f2f9b8503" alt="Setting Screen" width="200" />
+      </td>
+    </tr>
+     <tr>
+          <td>
+     <h3>Empty Home Screen</h3>
+      </td>
+          <td>
+     <h3>Home Screen</h3>
+      </td>
+      <td>
+     <h3>Add Drug</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+         <img src="https://github.com/user-attachments/assets/b070203e-f685-486c-9772-109d93f48f30" alt="Home Screen" width="200" />
+      </td>
+         <td>
+         <img src="https://github.com/user-attachments/assets/7bbb5c43-d875-4254-b8a8-d6b49f3e328a" alt="Home Screen" width="200" />
+      </td>
+         <td>
+         <img src="https://github.com/user-attachments/assets/52b668a3-0c07-4102-a6dc-bdd452bb8788" alt="Bottom Sheet Screen" width="200" />
+      </td>
+    </tr>
+           <tr>
+      <td>
+     <h3>How Use Screen</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+         <img src="https://github.com/user-attachments/assets/4bc9c266-7916-4c76-b5e5-81369c68c22f" alt="How Use Screen" width="200" />
+      </td>
+    </tr>
+  </tbody> 
+</table>
 
 
 ### Key UI Features:
